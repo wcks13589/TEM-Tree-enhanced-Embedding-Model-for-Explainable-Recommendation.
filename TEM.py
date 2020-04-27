@@ -1,4 +1,3 @@
-import os
 import numpy as np
 import torch
 import torch.nn.functional as F
@@ -9,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import GradientBoostingClassifier
 from sklearn.metrics import log_loss
 
+# Get data
 def get_data():
     user_id = sparse.load_npz('user_id.npz')
     item_id = sparse.load_npz('item_id.npz')
@@ -27,6 +27,7 @@ def get_data():
     
     return  x_train, y_train, n_userid, n_itemid
 
+# TEM model
 class FeaturesEmbedding(torch.nn.Module):
 
     def __init__(self, field_dims, embed_dim):
@@ -94,7 +95,7 @@ class TEM(torch.nn.Module):
 
 x_train, x_test, y_train, y_test, n_userid, n_itemid = get_data()
 
-#Train
+# Train
 num_tree = 500
 gbdt = GradientBoostingClassifier(n_estimators=num_tree, random_state=3 , max_depth = 6)
 gbdt.fit(x_train[:,2:], y_train)
@@ -139,7 +140,7 @@ for epoch in range(epochs):
 
 torch.save(model.state_dict(), 'TEM_0422_tree500.pt')
 
-#Test
+# Test
 def dcg_at_k(r, k, method=1):
     r = np.asfarray(r)[:k]
     if r.size:
