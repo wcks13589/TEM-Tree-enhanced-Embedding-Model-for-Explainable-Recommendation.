@@ -1,4 +1,3 @@
-import os
 import random
 import numpy as np
 from scipy import sparse
@@ -135,7 +134,6 @@ def create_x_data():
         print('Creating X_data Now:', user_id)
     return x_data.tocsr()[1:], np.array(y_data), np.array(users), np.array(items)
 
-os.chdir('C:/Users/wcks1/Desktop/找教授/tree_enhanced_embedding_model-master/Data/Raw/London_Attractions_Complete_Review.csv')
 data = open('Data_Lon.csv').readlines()
 
 user_data, user_style, item_attribute, item_tag = Load_data(data)
