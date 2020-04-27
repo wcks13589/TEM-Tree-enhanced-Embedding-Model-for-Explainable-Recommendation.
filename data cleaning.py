@@ -1,4 +1,3 @@
-import os
 import csv
 import numpy as np
 
@@ -58,6 +57,5 @@ def create_csv(data, path):  #清理不要的資料欄位與重新給予user ID�
             row = [feature[14],feature[9],feature[12],feature[15],styles,feature[11],feature[10],feature[2],attributes,tags]
             csv_write.writerow(row)
             
-os.chdir('C:/Users/wcks1/Desktop/找教授/tree_enhanced_embedding_model-master/Data/Raw/London_Attractions_Complete_Review.csv')
 raw_data = open('London_Attractions_Complete_Review.csv').readlines()
 create_csv(raw_data, 'Data_Lon.csv')
