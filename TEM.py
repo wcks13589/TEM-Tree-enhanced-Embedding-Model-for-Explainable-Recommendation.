@@ -93,7 +93,7 @@ class TEM(torch.nn.Module):
         x = self.linear(x[:,2:]) + self.projection1(element) + self.projection2(att)
         return torch.sigmoid(x.squeeze(1))
 
-x_train, x_test, y_train, y_test, n_userid, n_itemid = get_data()
+x_train, y_train, n_userid, n_itemid = get_data()
 
 # Train
 num_tree = 500
