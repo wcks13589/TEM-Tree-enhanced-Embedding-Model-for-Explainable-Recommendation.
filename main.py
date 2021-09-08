@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 import torch
 import torch.utils.data as Data
@@ -9,19 +10,18 @@ from sklearn.ensemble import GradientBoostingClassifier
 from model import TEM
 from utils import *
 
-args = {'num_tree':500,
-        'batch_size':20,
-        'embed_dim':20, 
-        'lr':1e-2,
-        'epochs':30,
-        'ckpt_path':'TEM_0422_tree500.pt'}
+parser = argparse.ArgumentParser()
+parser.add_argument('-n', '--n_tree', type=int, default=500)
+parser.add_argument('-b', '--batch_size', type=int, default=20)
+parser.add_argument('-e', '--epochs', type=int, default=30)
+parser.add_argument('-d', '--embed_dim', type=int, default=20)
 
 def main(args):
     
     x_train, y_train, n_userid, n_itemid = Load_data()
 
     # Train
-    gbdt = GradientBoostingClassifier(n_estimators=args['num_tree'], random_state=3 , max_depth = 6)
+    gbdt = GradientBoostingClassifier(n_estimators=args['n_tree'], random_state=3 , max_depth = 6)
     gbdt.fit(x_train[:,2:], y_train)
     n_cross_feature = np.max(gbdt.apply(x_train[:,2:])[:, :, 0],axis = 0)+1
 
@@ -75,5 +75,9 @@ def main(args):
 
                                                    
 if __name__ == '__main__':
+    
+    args = parser.parse_args()
+    args['ckpt_path'] = f'TEM_tree{args['n_tree']}.pt'
+    
     main(args)
                                                    
