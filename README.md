@@ -1,4 +1,4 @@
-# TEM
+# TEM: Tree-enhanced Embedding Model for Explainable Recommendation.
 
 This is an implementation of TEM ,a recommender system model, on Pytorch. 
   
